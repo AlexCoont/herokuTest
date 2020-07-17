@@ -12,6 +12,7 @@ import project.dto.requestDto.RegistrationDto;
 import project.models.User;
 import project.repositories.UserRepository;
 
+import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -168,5 +169,16 @@ public class UserService {
         BufferedImage newImage = Scalr.resize(bufferedImage, Scalr.Method.ULTRA_QUALITY, newWidth, newHeight);
 
         ImageIO.write(newImage, type, dstFile);
+    }
+
+    @PostConstruct
+    private void postConctruct(){
+        User user = new User();
+        user.setEmail("boss@mail.com");
+        user.setName("Boss");
+        user.setIsModerator((byte)1);
+        user.setPassword("$2a$10$XR/zQU8iZE4wfabkaRKc8uK9oDAiibFrzlH/S0OfWJQP2z7/7y4d2");
+        user.setRegTime(LocalDateTime.now());
+        userRepository.save(user);
     }
 }

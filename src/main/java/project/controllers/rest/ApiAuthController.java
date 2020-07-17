@@ -72,7 +72,8 @@ public class ApiAuthController {
             return ResponseEntity.ok(new ResultFalseDto());
         }
         String activationCode = userService.getUsersRestorePasswordCode(emailDto.getEmail());
-        String url = "http://localhost:8080/login/change-password/" + activationCode;
+        //String url = "http://localhost:8080/login/change-password/" + activationCode;
+        String url = "http://trubetskoy-java-skillbox.herokuapp.com/login/change-password/" + activationCode;
         String message ="Hello! To recover your password, visit next link:"
                 + "<a href=" + url + ">Восстановить пароль</a>";
         mailSender.send(emailDto.getEmail(), "Recover password", message);
