@@ -34,7 +34,6 @@ public class PostService {
     /**
      * получение постов по заданному параметру
      */
-    @Transactional
     public List<PostDto> getAllPosts(Integer offset, Integer limit, String mode){
 
         Pageable pageable = PageRequest.of(offset/limit, limit);

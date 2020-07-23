@@ -29,15 +29,15 @@ public interface PostRepository extends CrudRepository<Post, Integer> {
     /**
      * Запрос для api/post/popular
      */
-    @Query(value = "select posts.* " +
-            "from posts " +
-            "left join post_comments " +
-            "on posts.id = post_comments.post_id " +
-            "where posts.is_active = 1 " +
-            "and posts.moderation_status = 'ACCEPTED'" +
-            "and posts.time <= now()" +
-            "group by posts.id " +
-            "order by count(post_comments.post_id) desc", nativeQuery = true)
+    @Query(value = "SELECT posts.* " +
+            "FROM posts " +
+            "LEFT JOIN post_comments " +
+            "ON posts.id = post_comments.post_id " +
+            "WHERE posts.is_active = 1 " +
+            "AND posts.moderation_status = 'ACCEPTED'" +
+            "AND posts.time <= now()" +
+            "GROUP BY posts.id " +
+            "ORDER BY count(post_comments.post_id) DESC", nativeQuery = true)
     List<Post> mostPopularPosts(Pageable pageable);
 
     /**
@@ -45,12 +45,13 @@ public interface PostRepository extends CrudRepository<Post, Integer> {
      */
     @Query(value = "SELECT posts.* " +
             "FROM posts " +
-            "left join post_votes " +
-            "on posts.id = post_votes.post_id " +
-            "where posts.is_active = 1 and posts.moderation_status = 'ACCEPTED' " +
-            "and posts.time <= now() and post_votes.value = 1 " +
-            "group by posts.id " +
-            "order by count(post_votes.post_id) desc" , nativeQuery = true)
+            "LEFT JOIN post_votes " +
+            "ON posts.id = post_votes.post_id " +
+            "WHERE posts.is_active = 1 " +
+            "AND posts.moderation_status = 'ACCEPTED' " +
+            "AND posts.time <= now() AND post_votes.value = 1 " +
+            "GROUP BY posts.id " +
+            "ORDER BY count(post_votes.post_id) DESC" , nativeQuery = true)
     List<Post> bestPosts(Pageable pageable);
 
     /**
