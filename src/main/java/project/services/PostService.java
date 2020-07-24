@@ -16,6 +16,7 @@ import project.models.Tag;
 import project.models.User;
 import project.repositories.PostRepository;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -24,12 +25,35 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static java.util.stream.Collectors.toList;
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
+import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
 @Service
 @AllArgsConstructor
 public class PostService {
 
     private PostRepository postRepository;
+
+    @PostConstruct
+    private void init(){
+        List<Post> posts = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++){
+            Post post = new Post();
+            post.setModeratorId(1);
+            post.setModerationStatus(ModerationStatus.ACCEPTED);
+            User user = new User();
+            user.setId(1);
+            post.setUserId(user);
+            post.setTitle(randomAlphabetic(10));
+            post.setText(randomAlphabetic(10));
+            post.setIsActive((byte)1);
+            post.setTime(LocalDateTime.now());
+            post.setViewCount(Integer.parseInt(randomNumeric(2)));
+            posts.add(post);
+        }
+        postRepository.saveAll(posts);
+    }
 
     /**
      * получение постов по заданному параметру
