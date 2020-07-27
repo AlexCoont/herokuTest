@@ -6,6 +6,7 @@ import project.models.Post;
 import project.models.PostVote;
 import project.repositories.PostVotesRepository;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -13,6 +14,18 @@ import java.util.Optional;
 @AllArgsConstructor
 public class PostVotesService {
     private PostVotesRepository postVotesRepository;
+
+    @PostConstruct
+    private void init(){
+        PostVote postVote = new PostVote();
+        Post post = new Post();
+        post.setId(1);
+        postVote.setPostId(post);
+        postVote.setUserId(1);
+        postVote.setValue((byte)1);
+        postVote.setTime(LocalDateTime.now());
+        postVotesRepository.save(postVote);
+    }
 
     /**
      * добавление лайка или дизлайка к посту, возвращает false, если лайк или дизлайк уже стоит,
