@@ -8,6 +8,8 @@ import project.repositories.PostVotesRepository;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +19,9 @@ public class PostVotesService {
 
     @PostConstruct
     private void init(){
+
+        List<PostVote> postVoteList = new ArrayList<>();
+
         PostVote postVote = new PostVote();
         Post post = new Post();
         post.setId(1);
@@ -24,7 +29,34 @@ public class PostVotesService {
         postVote.setUserId(1);
         postVote.setValue((byte)1);
         postVote.setTime(LocalDateTime.now());
-        postVotesRepository.save(postVote);
+        postVoteList.add(postVote);
+
+        PostVote postVote2 = new PostVote();
+        postVote2.setPostId(post);
+        postVote2.setUserId(2);
+        postVote2.setValue((byte)1);
+        postVote2.setTime(LocalDateTime.now());
+        postVoteList.add(postVote2);
+
+        PostVote postVote3 = new PostVote();
+        Post post3 = new Post();
+        post3.setId(2);
+        postVote3.setPostId(post3);
+        postVote3.setUserId(3);
+        postVote3.setValue((byte)1);
+        postVote3.setTime(LocalDateTime.now());
+        postVoteList.add(postVote3);
+
+        PostVote postVote4 = new PostVote();
+        Post post4 = new Post();
+        post4.setId(3);
+        postVote4.setPostId(post4);
+        postVote4.setUserId(1);
+        postVote4.setValue((byte)-1);
+        postVote4.setTime(LocalDateTime.now());
+        postVoteList.add(postVote4);
+
+        postVotesRepository.saveAll(postVoteList);
     }
 
     /**

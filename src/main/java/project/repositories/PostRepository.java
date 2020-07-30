@@ -49,9 +49,9 @@ public interface PostRepository extends CrudRepository<Post, Integer> {
             "ON posts.id = post_votes.post_id " +
             "WHERE posts.is_active = 1 " +
             "AND posts.moderation_status = 'ACCEPTED' " +
-            "AND posts.time <= now() AND post_votes.value = 1 " +
+            "AND posts.time <= now() " +
             "GROUP BY posts.id " +
-            "ORDER BY count(post_votes.post_id) DESC" , nativeQuery = true)
+            "ORDER BY sum(post_votes.value) DESC" , nativeQuery = true)
     List<Post> bestPosts(Pageable pageable);
 
     /**

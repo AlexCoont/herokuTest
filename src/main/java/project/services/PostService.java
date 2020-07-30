@@ -359,8 +359,7 @@ public class PostService {
      * модерация поста
      */
     public void moderationPost(ModerationPostDto moderationPostDto, Integer moderatorId){
-        Post post = postRepository.getByIdAndModerationStatusAndIsActive(moderationPostDto.getPostId(),
-                ModerationStatus.NEW, (byte)1);
+        Post post = postRepository.getPostById(moderationPostDto.getPostId());
         switch (moderationPostDto.getDecision()){
             case "accept":
                 post.setModerationStatus(ModerationStatus.ACCEPTED);

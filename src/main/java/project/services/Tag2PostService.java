@@ -8,6 +8,7 @@ import project.models.Tag;
 import project.models.Tag2Post;
 import project.repositories.Tag2PostRepository;
 
+import javax.annotation.PostConstruct;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,43 @@ import java.util.List;
 public class Tag2PostService {
 
     private Tag2PostRepository tag2PostRepository;
+
+    @PostConstruct
+    private void init(){
+
+        List<Tag2Post> tag2PostList = new ArrayList<>();
+
+        Tag2Post tag2Post = new Tag2Post();
+        tag2Post.setTagId(1);
+        tag2Post.setPostId(1);
+        tag2PostList.add(tag2Post);
+
+        Tag2Post tag2Post2 = new Tag2Post();
+        tag2Post2.setTagId(1);
+        tag2Post2.setPostId(2);
+        tag2PostList.add(tag2Post2);
+
+        Tag2Post tag2Post3 = new Tag2Post();
+        tag2Post3.setTagId(1);
+        tag2Post3.setPostId(3);
+        tag2PostList.add(tag2Post3);
+
+        Tag2Post tag2Post4 = new Tag2Post();
+        tag2Post4.setTagId(2);
+        tag2Post4.setPostId(1);
+        tag2PostList.add(tag2Post4);
+
+        Tag2Post tag2Post5 = new Tag2Post();
+        tag2Post5.setTagId(2);
+        tag2Post5.setPostId(2);
+        tag2PostList.add(tag2Post5);
+
+        Tag2Post tag2Post6 = new Tag2Post();
+        tag2Post6.setTagId(3);
+        tag2Post6.setPostId(4);
+        tag2PostList.add(tag2Post6);
+        tag2PostRepository.saveAll(tag2PostList);
+    }
 
     /**
      * сохранение связей постов и тегов

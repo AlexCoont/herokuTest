@@ -18,6 +18,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,13 +36,33 @@ public class UserService {
 
     @PostConstruct
     private void postConctruct(){
+        List<User> userList = new ArrayList<>();
+
         User user = new User();
         user.setEmail("boss@mail.com");
         user.setName("Boss");
         user.setIsModerator((byte)1);
         user.setPassword("$2a$10$XR/zQU8iZE4wfabkaRKc8uK9oDAiibFrzlH/S0OfWJQP2z7/7y4d2");
         user.setRegTime(LocalDateTime.now());
-        userRepository.save(user);
+        userList.add(user);
+
+        User user2 = new User();
+        user2.setEmail("test1@mail.com");
+        user2.setName("Test1");
+        user2.setIsModerator((byte)0);
+        user2.setPassword("$2a$10$XR/zQU8iZE4wfabkaRKc8uK9oDAiibFrzlH/S0OfWJQP2z7/7y4d2");
+        user2.setRegTime(LocalDateTime.now());
+        userList.add(user2);
+
+        User user3 = new User();
+        user3.setEmail("test2@mail.com");
+        user3.setName("Test2");
+        user3.setIsModerator((byte)0);
+        user3.setPassword("$2a$10$XR/zQU8iZE4wfabkaRKc8uK9oDAiibFrzlH/S0OfWJQP2z7/7y4d2");
+        user3.setRegTime(LocalDateTime.now());
+        userList.add(user3);
+
+        userRepository.saveAll(userList);
     }
 
     /**
